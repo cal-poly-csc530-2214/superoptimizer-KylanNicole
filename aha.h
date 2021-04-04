@@ -22,13 +22,13 @@ NIM   = number of ordinary immediate values
 NSHIM = number of shift immediate values
 */
 
-#define MAXNEG 0x80000000
+#define MAXNEG ((int) 0x80000000)
 #define MAXPOS 0x7FFFFFFF
 #define NBSM 63                 // Shift mask.  Use 63 for mod 64
                                 // shifts, or 31 for mod 32.
 
 int trialx[] = {1, 0, -1, MAXNEG, MAXPOS, \
-   MAXNEG + 1, MAXPOS - 1, 0x01234567, 0x89ABCDEF, -2, 2, -3, 3, \
+   MAXNEG + 1, MAXPOS - 1, 0x01234567, ((int) 0x89ABCDEF), -2, 2, -3, 3, \
    -64, 64, -5, -31415};
 #if NARGS == 2
    int trialy[] = {0};
@@ -79,9 +79,9 @@ int nlz(int xx, int, int) {
 
 int rev(int xi, int, int) {
    unsigned x = xi;
-   x = (x & 0x55555555) <<  1 | (x >>  1) & 0x55555555;
-   x = (x & 0x33333333) <<  2 | (x >>  2) & 0x33333333;
-   x = (x & 0x0F0F0F0F) <<  4 | (x >>  4) & 0x0F0F0F0F;
+   x = (x & 0x55555555) <<  1 | ((x >>  1) & 0x55555555);
+   x = (x & 0x33333333) <<  2 | ((x >>  2) & 0x33333333);
+   x = (x & 0x0F0F0F0F) <<  4 | ((x >>  4) & 0x0F0F0F0F);
    x = (x << 24) | ((x & 0xFF00) << 8) |
        ((x >> 8) & 0xFF00) | (x >> 24);
    return x;
@@ -128,29 +128,29 @@ struct {
    char *fun_name;              // Function name, for printing.
    char *op_name;               // Operator name, for printing.
 } isa[] = {
-   {neg,    1, 0, {RX,  0,  0}, "neg",   "-(",   ""     },  // Negate.
-   {_not,   1, 0, {RX,  0,  0}, "not",   "~(",   ""     },  // One's-complement.
-// {pop,    1, 0, {RX,  0,  0}, "pop",   "pop(", ""     },  // Population count.
-// {nlz,    1, 0, {RX,  0,  0}, "nlz",   "nlz(", ""     },  // Num leading 0's.
-// {rev,    1, 0, {RX,  0,  0}, "rev",   "rev(", ""     },  // Bit reversal.
-   {add,    2, 1, {RX,  2,  0}, "add",   "(",    " + "  },  // Add.
-   {sub,    2, 0, { 2,  2,  0}, "sub",   "(",    " - "  },  // Subtract.
-   {mul,    2, 1, {RX,  3,  0}, "mul",   "(",    "*"    },  // Multiply.
-   {div,    2, 0, { 1,  3,  0}, "div",   "(",    "/"    },  // Divide signed.
-   {divu,   2, 0, { 1,  1,  0}, "divu",  "(",    " /u " },  // Divide unsigned.
-   {_and,   2, 1, {RX,  2,  0}, "and",   "(",    " & "  },  // AND.
-   {_or,    2, 1, {RX,  2,  0}, "or",    "(",    " | "  },  // OR.
-   {_xor,   2, 1, {RX,  2,  0}, "xor",   "(",    " ^ "  },  // XOR.
-// {rotl,   2, 0, { 1,NIM,  0}, "rotl",  "(",    " <<r "},  // Rotate shift left.
-   {shl,    2, 0, { 1,NIM,  0}, "shl",   "(",    " << " },  // Shift left.
-   {shr,    2, 0, { 1,NIM,  0}, "shr",   "(",    " >>u "},  // Shift right.
-   {shrs,   2, 0, { 3,NIM,  0}, "shrs",  "(",    " >>s "},  // Shift right signed.
-// {cmpeq,  2, 1, {RX,  0,  0}, "cmpeq", "(",    " == " },  // Compare equal.
-// {cmplt,  2, 0, { 0,  0,  0}, "cmplt", "(",    " < "  },  // Compare less than.
-// {cmpltu, 2, 0, { 1,  1,  0}, "cmpltu","(",    " <u " },  // Compare less than unsigned.
-// {seleq,  3, 0, {RX,  0,  0}, "seleq", "seleq(", ", " },  // Select if = 0.
-// {sellt,  3, 0, {RX,  0,  0}, "sellt", "sellt(", ", " },  // Select if < 0.
-// {selle,  3, 0, {RX,  0,  0}, "selle", "selle(", ", " },  // Select if <= 0.
+   {neg, 1,0,{RX,  0,0},((char*)"neg"), ((char*)"-("),((char*)"")},  // Negate.
+   {_not,1,0,{RX,  0,0},((char*)"not"), ((char*)"~("),((char*)"")},  // One's-complement.
+   {add, 2,1,{RX,  2,0},((char*)"add"), ((char*)"("), ((char*)" + ")},  // Add.
+   {sub, 2,0,{ 2,  2,0},((char*)"sub"), ((char*)"("), ((char*)" - ")},  // Subtract.
+   {mul, 2,1,{RX,  3,0},((char*)"mul"), ((char*)"("), ((char*)"*")},  // Multiply.
+   {div, 2,0,{ 1,  3,0},((char*)"div"), ((char*)"("), ((char*)"/")},  // Divide signed.
+   {divu,2,0,{ 1,  1,0},((char*)"divu"),((char*)"("), ((char*)" /u ")},  // Divide unsigned.
+   {_and,2,1,{RX,  2,0},((char*)"and"), ((char*)"("), ((char*)" & ")},  // AND.
+   {_or, 2,1,{RX,  2,0},((char*)"or"),  ((char*)"("), ((char*)" | ")},  // OR.
+   {_xor,2,1,{RX,  2,0},((char*)"xor"), ((char*)"("), ((char*)" ^ ")},  // XOR.
+   {shl, 2,0,{ 1,NIM,0},((char*)"shl"), ((char*)"("), ((char*)" << ")},  // Shift left.
+   {shr, 2,0,{ 1,NIM,0},((char*)"shr"), ((char*)"("), ((char*)" >>u ")},  // Shift right.
+   {shrs,2,0,{ 3,NIM,0},((char*)"shrs"),((char*)"("), ((char*)" >>s ")},  // Shift right signed.
+// {pop, 1, 0, {RX, 0, 0}, "pop", "pop(", ""},  // Population count.
+// {rotl, 2, 0, {1, NIM, 0}, "rotl", "(", " <<r "},  // Rotate shift left.
+// {nlz, 1, 0, {RX, 0, 0}, "nlz", "nlz(", "" },  // Num leading 0's.
+// {rev, 1, 0, {RX, 0, 0}, "rev", "rev(", "" },  // Bit reversal.
+// {cmpeq, 2, 1, {RX, 0, 0}, "cmpeq", "(", " == " },  // Compare equal.
+// {cmplt, 2, 0, {0, 0, 0}, "cmplt", "(", " < " },  // Compare less than.
+// {cmpltu, 2, 0, {1, 1, 0}, "cmpltu","(", " <u " },  // Compare less than unsigned.
+// {seleq, 3, 0, {RX, 0, 0}, "seleq", "seleq(", ", " },  // Select if = 0.
+// {sellt, 3, 0, {RX, 0, 0}, "sellt", "sellt(", ", " },  // Select if < 0.
+// {selle, 3, 0, {RX, 0, 0}, "selle", "selle(", ", " },  // Select if <= 0.
 };
 
 /* ------------------- End of user-setup Portion -------------------- */
