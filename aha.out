@@ -1,0 +1,144 @@
+Searching for programs with 4 operations.
+
+Found a 4-operation program:
+   add   r1,rx,3
+   and   r2,r1,2
+   shr   r3,3,r2
+   xor   r4,r3,rx
+   Expr: ((3 >>u ((x + 3) & 2)) ^ x)
+
+Found a 4-operation program:
+   add   r1,rx,3
+   and   r2,r1,2
+   shrs  r3,3,r2
+   xor   r4,r3,rx
+   Expr: ((3 >>s ((x + 3) & 2)) ^ x)
+
+Found a 4-operation program:
+   sub   r1,rx,1
+   and   r2,r1,2
+   shr   r3,3,r2
+   xor   r4,r3,rx
+   Expr: ((3 >>u ((x - 1) & 2)) ^ x)
+
+Found a 4-operation program:
+   sub   r1,rx,1
+   and   r2,r1,2
+   shrs  r3,3,r2
+   xor   r4,r3,rx
+   Expr: ((3 >>s ((x - 1) & 2)) ^ x)
+
+Found a 4-operation program:
+   sub   r1,-2,rx
+   and   r2,r1,2
+   shr   r3,3,r2
+   xor   r4,r3,rx
+   Expr: ((3 >>u ((-2 - x) & 2)) ^ x)
+
+Found a 4-operation program:
+   sub   r1,-2,rx
+   and   r2,r1,2
+   shrs  r3,3,r2
+   xor   r4,r3,rx
+   Expr: ((3 >>s ((-2 - x) & 2)) ^ x)
+
+Found a 4-operation program:
+   sub   r1,2,rx
+   and   r2,r1,2
+   shr   r3,3,r2
+   xor   r4,r3,rx
+   Expr: ((3 >>u ((2 - x) & 2)) ^ x)
+
+Found a 4-operation program:
+   sub   r1,2,rx
+   and   r2,r1,2
+   shrs  r3,3,r2
+   xor   r4,r3,rx
+   Expr: ((3 >>s ((2 - x) & 2)) ^ x)
+
+Found a 4-operation program:
+   xor   r1,rx,3
+   sub   r2,r1,rx
+   div   r3,-1,r2
+   sub   r4,rx,r3
+   Expr: (x - (-1/((x ^ 3) - x)))
+
+Found a 4-operation program:
+   xor   r1,rx,3
+   sub   r2,r1,rx
+   div   r3,1,r2
+   add   r4,r3,rx
+   Expr: ((1/((x ^ 3) - x)) + x)
+
+Found a 4-operation program:
+   xor   r1,rx,3
+   sub   r2,rx,r1
+   div   r3,-1,r2
+   add   r4,r3,rx
+   Expr: ((-1/(x - (x ^ 3))) + x)
+
+Found a 4-operation program:
+   xor   r1,rx,3
+   sub   r2,rx,r1
+   div   r3,1,r2
+   sub   r4,rx,r3
+   Expr: (x - (1/(x - (x ^ 3))))
+
+Found a 4-operation program:
+   shl   r1,rx,30
+   add   r2,r1,-2
+   div   r3,r1,r2
+   add   r4,r3,rx
+   Expr: (((x << 30)/((x << 30) + -2)) + x)
+
+Found a 4-operation program:
+   shl   r1,rx,30
+   sub   r2,r1,1
+   div   r3,r1,r2
+   add   r4,r3,rx
+   Expr: (((x << 30)/((x << 30) - 1)) + x)
+
+Found a 4-operation program:
+   shl   r1,rx,30
+   sub   r2,r1,2
+   div   r3,r1,r2
+   add   r4,r3,rx
+   Expr: (((x << 30)/((x << 30) - 2)) + x)
+
+Found a 4-operation program:
+   shl   r1,rx,30
+   sub   r2,r1,3
+   div   r3,r1,r2
+   add   r4,r3,rx
+   Expr: (((x << 30)/((x << 30) - 3)) + x)
+
+Found a 4-operation program:
+   shl   r1,rx,30
+   sub   r2,1,r1
+   div   r3,r1,r2
+   sub   r4,rx,r3
+   Expr: (x - ((x << 30)/(1 - (x << 30))))
+
+Found a 4-operation program:
+   shl   r1,rx,30
+   sub   r2,2,r1
+   div   r3,r1,r2
+   sub   r4,rx,r3
+   Expr: (x - ((x << 30)/(2 - (x << 30))))
+
+Found a 4-operation program:
+   shl   r1,rx,30
+   sub   r2,3,r1
+   div   r3,r1,r2
+   sub   r4,rx,r3
+   Expr: (x - ((x << 30)/(3 - (x << 30))))
+
+Found a 4-operation program:
+   shl   r1,rx,30
+   div   r2,r1,-2
+   shrs  r3,r2,30
+   sub   r4,rx,r3
+   Expr: (x - (((x << 30)/-2) >>s 30))
+Found 20 solutions.
+Counters = 5404776, 5425146, 12404393, 531774985, total = 555009300
+Process time = 19.306 secs

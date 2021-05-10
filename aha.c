@@ -26,10 +26,10 @@ int userfun(int x) {
 
 // return 3*x + 1;
 
-   if (x >= 0) return x;                // Absolute value.
-   else return -x;
+// if (x >= 0) return x;                // Absolute value.
+// else return -x;
 
-// return (x & 0xfffffffc) | ((x & 1) << 1) | ((x & 2) >> 1);
+   return (x & 0xfffffffc) | ((x & 1) << 1) | ((x & 2) >> 1);
                                         // Swap rightmost 2 bits.
 }
 
